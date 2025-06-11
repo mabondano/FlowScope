@@ -1,43 +1,43 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import Plotly from 'plotly.js-dist-min';
+import { ref } from 'vue';
+// IMPORTA LOS COMPONENTES DE PRIMEVUE DESDE primevue
 import PanelMenu from 'primevue/panelmenu';
 import Textarea from 'primevue/textarea';
 
+// Define los ítems del menú lateral (sidebar)
 const items = ref([
-  { label: 'Dashboard', icon: 'pi pi-fw pi-home' },
-  { label: 'Signals', icon: 'pi pi-fw pi-chart-bar' },
-  { label: 'Console', icon: 'pi pi-fw pi-terminal' }
-]);
-const consoleOutput = ref('Welcome to FlowScope!\n\nServer output will appear here...');
-
-// --- Plotly setup ---
-const plotDiv = ref<HTMLDivElement | null>(null);
-
-onMounted(() => {
-  if (plotDiv.value) {
-    Plotly.newPlot(
-      plotDiv.value,
-      [
-        { x: [1, 2, 3, 4], y: [10, 15, 13, 17], type: 'scatter', mode: 'lines+markers', marker: { color: 'green' } }
-      ],
-      { title: 'Demo Plotly Chart', margin: { t: 30 } }
-    );
+  {
+    label: 'Dashboard',
+    icon: 'pi pi-fw pi-home'
+  },
+  {
+    label: 'Signals',
+    icon: 'pi pi-fw pi-chart-bar'
+  },
+  {
+    label: 'Console',
+    icon: 'pi pi-fw pi-terminal'
   }
-});
+]);
+
+// Simula la salida de consola
+const consoleOutput = ref('Welcome to FlowScope!\n\nServer output will appear here...');
 </script>
 
 <template>
   <div class="dashboard-container">
+    <!-- SIDEBAR IZQUIERDA -->
     <aside class="sidebar">
       <PanelMenu :model="items" />
     </aside>
+    <!-- CONTENIDO PRINCIPAL -->
     <main class="main-content">
       <div class="drawing-area">
-        <!-- Plotly graph will appear here -->
-        <div ref="plotDiv" style="width:100%; height:260px;"></div>
+        <!-- Aquí pondrás un gráfico o dibujo después -->
+        <h3>Drawing Area</h3>
       </div>
       <div class="console-area">
+        <!-- Consola de texto para mostrar la salida del server -->
         <Textarea v-model="consoleOutput" autoResize rows="6" cols="60" readonly class="console-text" />
       </div>
     </main>
@@ -68,7 +68,7 @@ onMounted(() => {
   flex: 1;
   background: #fff;
   border-radius: 10px;
-  min-height: 280px;
+  min-height: 180px;
   display: flex;
   justify-content: center;
   align-items: center;
